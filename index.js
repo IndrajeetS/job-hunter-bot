@@ -1,10 +1,8 @@
-// index.js
-import dotenv from "dotenv";
 import { analyzeJob } from "./analyzer.js";
 import { fetchAllJobs } from "./scraper.js";
 import { supabase } from "./supabase.js";
 
-dotenv.config();
+
 
 async function run() {
   console.log("Fetching jobs...");
