@@ -1,8 +1,10 @@
 import fetch from "node-fetch";
 
-const RESUME = process.env.RESUME_TEXT || `PASTE YOUR RESUME TEXT HERE`;
+const RESUME_DEFAULT = process.env.RESUME_TEXT || `PASTE YOUR RESUME TEXT HERE`;
 
-export async function analyzeJob(job) {
+export async function analyzeJob(job, resume) {
+  const targetResume = resume || RESUME_DEFAULT;
+  
   if (!process.env.AI_URL) {
     console.warn("AI_URL is not set in .env. Skipping analysis.");
     return { match_score: 0, missing_skills: [], strengths: [], summary: "AI_URL missing" };
@@ -22,7 +24,7 @@ Job:
 ${job.description || "No description provided"}
 
 Resume:
-${RESUME}
+${targetResume}
 `;
 
   try {
