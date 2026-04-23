@@ -4,7 +4,7 @@ import { run } from "./index.js";
 import { supabase } from "./supabase.js";
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 
 app.use(express.json());
 
@@ -12,16 +12,16 @@ app.use(express.json());
 app.post("/run", async (req, res) => {
   try {
     const { resume, search } = req.body;
-    console.log(`Triggering job run with search: "${search || 'Default'}"...`);
-    
+    console.log(`Triggering job run with search: "${search || "Default"}"...`);
+
     // Run the process in the background
     run(search, resume)
       .then(() => console.log("API-triggered run completed."))
       .catch((err) => console.error("API-triggered run failed:", err));
 
-    res.status(202).json({ 
+    res.status(202).json({
       message: "Job run started in background.",
-      parameters: { search: search || "Default", hasResume: !!resume }
+      parameters: { search: search || "Default", hasResume: !!resume },
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -49,9 +49,19 @@ app.get("/health", async (req, res) => {
   try {
     const { data, error } = await supabase.from("jobs").select("id").limit(1);
     if (error) throw error;
-    res.json({ status: "ok", database: "connected", timestamp: new Date().toISOString() });
+    res.json({
+      status: "ok",
+      database: "connected",
+      timestamp: new Date().toISOString(),
+    });
   } catch (error) {
-    res.status(500).json({ status: "error", message: "Database connection failed", details: error.message });
+    res
+      .status(500)
+      .json({
+        status: "error",
+        message: "Database connection failed",
+        details: error.message,
+      });
   }
 });
 
