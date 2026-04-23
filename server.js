@@ -1,3 +1,4 @@
+console.log("Starting Server...");
 import express from "express";
 import { run } from "./index.js";
 import { supabase } from "./supabase.js";
@@ -58,6 +59,6 @@ app.get("/", (req, res) => {
   res.json({ message: "Job Hunter Bot API is running." });
 });
 
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+app.listen(port, "0.0.0.0", () => {
+  console.log(`Server is definitely running and listening on 0.0.0.0:${port}`);
 });
