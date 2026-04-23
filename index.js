@@ -55,7 +55,7 @@ export async function run(search, resume) {
       .maybeSingle();
 
     if (existing) {
-      // console.log(`Skipping: Job ${job.id} already analyzed.`);
+      console.log(`Skipping: Job ${job.id} already analyzed.`);
       continue;
     }
 
@@ -93,5 +93,5 @@ export async function run(search, resume) {
     }
   }
 
-  console.log(`Done. Added ${addedCount} relevant jobs to the database.`);
+  console.log(`Run complete for "${search || "Default"}". Added ${addedCount} relevant jobs.`);
 }
