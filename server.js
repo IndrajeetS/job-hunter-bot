@@ -4,7 +4,7 @@ import { run } from "./index.js";
 import { supabase } from "./supabase.js";
 
 const app = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
@@ -55,13 +55,11 @@ app.get("/health", async (req, res) => {
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        status: "error",
-        message: "Database connection failed",
-        details: error.message,
-      });
+    res.status(500).json({
+      status: "error",
+      message: "Database connection failed",
+      details: error.message,
+    });
   }
 });
 
